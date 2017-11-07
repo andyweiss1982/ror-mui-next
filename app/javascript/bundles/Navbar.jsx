@@ -39,11 +39,6 @@ const styles = theme => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
-  appBarRight: {
-    marginLeft: 'auto',
-    display: 'flex',
-    alignItems: 'center',
-  },
   appBarShift: {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
@@ -100,6 +95,11 @@ const styles = theme => ({
       marginTop: 64,
     },
   },
+  toolBarRight: {
+    marginLeft: 'auto',
+    display: 'flex',
+    alignItems: 'center',
+  },
   avatar: {
     marginTop: 9,
     marginBottom: 9,
@@ -142,7 +142,7 @@ class Navbar extends React.Component {
                 <Typography type="title" color="inherit" noWrap>
                   Demo Application
                 </Typography>
-                <div className={classes.appBarRight}>
+                <div className={classes.toolBarRight}>
                   <Typography type="subheading" color="inherit" noWrap>
                     Current User
                   </Typography>
