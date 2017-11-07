@@ -143,7 +143,7 @@ class Navbar extends React.Component {
                 </Typography>
                 <div className={classes.appBarRight}>
                   <Typography type="subheading" color="inherit" noWrap>
-                    Curent User
+                    Current User
                   </Typography>
                   <Avatar
                     alt="Current user"
@@ -173,9 +173,7 @@ class Navbar extends React.Component {
               </div>
             </Drawer>
             <main className={classes.content}>
-              <Typography type="body1" noWrap>
-                {this.props.children}
-              </Typography>
+              {this.props.children}
             </main>
           </div>
         </div>
