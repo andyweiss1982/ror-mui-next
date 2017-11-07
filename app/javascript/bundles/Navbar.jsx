@@ -94,6 +94,7 @@ const styles = theme => ({
     padding: 24,
     height: 'calc(100% - 56px)',
     marginTop: 56,
+    overflow: 'scroll',
     [theme.breakpoints.up('sm')]: {
       height: 'calc(100% - 64px)',
       marginTop: 64,
