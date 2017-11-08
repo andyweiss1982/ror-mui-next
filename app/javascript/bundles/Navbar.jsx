@@ -142,6 +142,10 @@ class Navbar extends React.Component {
     this.setState({ menu: {open: false }});
   };
 
+  handleLogout = () => {
+
+  }
+
   render() {
     const { classes, theme } = this.props;
     return (
@@ -188,7 +192,7 @@ class Navbar extends React.Component {
                             <MenuList role="menu">
                               <MenuItem onClick={this.handleMenuRequestClose}>Profile</MenuItem>
                               <MenuItem onClick={this.handleMenuRequestClose}>My account</MenuItem>
-                              <MenuItem onClick={this.handleMenuRequestClose}>Logout</MenuItem>
+                              <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
                             </MenuList>
                           </Paper>
                         </Grow>
