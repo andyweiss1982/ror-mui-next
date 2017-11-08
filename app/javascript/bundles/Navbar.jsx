@@ -15,7 +15,12 @@ import ChevronRightIcon from 'material-ui-icons/ChevronRight';
 import Theme from './Theme';
 import Avatar from 'material-ui/Avatar';
 import Button from 'material-ui/Button';
-import Menu, { MenuItem } from 'material-ui/Menu'
+import Menu, { MenuItem, MenuList } from 'material-ui/Menu'
+import { Manager, Target, Popper } from 'react-popper';
+import ClickAwayListener from 'material-ui/utils/ClickAwayListener';
+import Grow from 'material-ui/transitions/Grow';
+import Paper from 'material-ui/Paper';
+
 import { mailFolderListItems, otherMailFolderListItems } from './tileData';
 
 const drawerWidth = 240;
@@ -157,32 +162,39 @@ class Navbar extends React.Component {
                   Demo Application
                 </Typography>
                 <div className={classes.toolBarRight}>
-                  <Button
-                    className={classes.button}
-                    color="contrast"
-                    aria-owns={this.state.menu.open ? 'user-menu' : null}
-                    aria-haspopup="true"
-                    onClick={this.handleMenuClick}
-                  >
-                    <Typography type="subheading" color="inherit" noWrap>
-                      {this.props.current_user.email}
-                    </Typography>
-                    <Avatar
-                      alt={this.props.current_user.email}
-                      src="/avatar-missing.jpg"
-                      className={classNames(classes.avatar, classes.bigAvatar)}
-                    />
-                  </Button>
-                  <Menu
-                    id="user-menu"
-                    anchorEl={this.state.menu.anchorEl}
-                    open={this.state.menu.open}
-                    onRequestClose={this.handleMenuRequestClose}
-                  >
-                    <MenuItem onClick={this.handleMenuRequestClose}>Profile</MenuItem>
-                    <MenuItem onClick={this.handleMenuRequestClose}>My account</MenuItem>
-                    <MenuItem onClick={this.handleMenuRequestClose}>Logout</MenuItem>
-                  </Menu>
+                  <Manager>
+                    <Target>
+                      <Button
+                        className={classes.button}
+                        color="contrast"
+                        aria-owns={this.state.menu.open ? 'user-list' : null}
+                        aria-haspopup="true"
+                        onClick={this.handleMenuClick}
+                      >
+                        <Typography type="subheading" color="inherit" noWrap>
+                          {this.props.current_user.email}
+                        </Typography>
+                        <Avatar
+                          alt={this.props.current_user.email}
+                          src="/avatar-missing.jpg"
+                          className={classNames(classes.avatar, classes.bigAvatar)}
+                        />
+                      </Button>
+                    </Target>
+                    <Popper placement="bottom-end" eventsEnabled={this.state.menu.open}>
+                      <ClickAwayListener onClickAway={this.handleMenuRequestClose}>
+                        <Grow in={this.state.menu.open} id="user-list" style={{ transformOrigin: '0 0 0' }}>
+                          <Paper>
+                            <MenuList role="menu">
+                              <MenuItem onClick={this.handleMenuRequestClose}>Profile</MenuItem>
+                              <MenuItem onClick={this.handleMenuRequestClose}>My account</MenuItem>
+                              <MenuItem onClick={this.handleMenuRequestClose}>Logout</MenuItem>
+                            </MenuList>
+                          </Paper>
+                        </Grow>
+                      </ClickAwayListener>
+                    </Popper>
+                  </Manager>
                 </div>
               </Toolbar>
             </AppBar>
