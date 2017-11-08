@@ -117,6 +117,10 @@ const styles = theme => ({
     marginRight: 24,
     width: 45,
     height: 45,
+  },
+  menuLink: {
+    textDecoration: 'none',
+    color: theme.palette.common.black,
   }
 });
 
@@ -141,10 +145,6 @@ class Navbar extends React.Component {
   handleMenuRequestClose = () => {
     this.setState({ menu: {open: false }});
   };
-
-  handleLogout = () => {
-
-  }
 
   render() {
     const { classes, theme } = this.props;
@@ -181,7 +181,7 @@ class Navbar extends React.Component {
                         <Avatar
                           alt={this.props.current_user.email}
                           src="/avatar-missing.jpg"
-                          className={classNames(classes.avatar, classes.bigAvatar)}
+                          className={classes.avatar}
                         />
                       </Button>
                     </Target>
@@ -192,7 +192,16 @@ class Navbar extends React.Component {
                             <MenuList role="menu">
                               <MenuItem onClick={this.handleMenuRequestClose}>Profile</MenuItem>
                               <MenuItem onClick={this.handleMenuRequestClose}>My account</MenuItem>
-                              <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+                              <MenuItem>
+                                <a
+                                  rel="nofollow"
+                                  data-method="delete"
+                                  href="/users/sign_out"
+                                  className={classes.menuLink}
+                                >
+                                  Logout
+                                </a>
+                              </MenuItem>
                             </MenuList>
                           </Paper>
                         </Grow>
