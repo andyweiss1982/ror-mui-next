@@ -21,7 +21,7 @@ const styles = theme => ({
 function Dashboard(props) {
   const { classes } = props;
   return (
-    <Navbar>
+    <Navbar current_user={props.current_user}>
       <div className={classes.root}>
         <Grid container spacing={24}>
           <Grid item xs={12} sm={7}>

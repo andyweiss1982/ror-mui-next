@@ -14,6 +14,7 @@ import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import ChevronRightIcon from 'material-ui-icons/ChevronRight';
 import Theme from './Theme';
 import Avatar from 'material-ui/Avatar';
+import Button from 'material-ui/Button';
 import { mailFolderListItems, otherMailFolderListItems } from './tileData';
 
 const drawerWidth = 240;
@@ -143,14 +144,16 @@ class Navbar extends React.Component {
                   Demo Application
                 </Typography>
                 <div className={classes.toolBarRight}>
-                  <Typography type="subheading" color="inherit" noWrap>
-                    Current User
-                  </Typography>
-                  <Avatar
-                    alt="Current user"
-                    src="/avatar-missing.jpg"
-                    className={classNames(classes.avatar, classes.bigAvatar)}
-                  />
+                  <Button color="contrast">
+                    <Typography type="subheading" color="inherit" noWrap>
+                      {this.props.current_user.email}
+                    </Typography>
+                    <Avatar
+                      alt={this.props.current_user.email}
+                      src="/avatar-missing.jpg"
+                      className={classNames(classes.avatar, classes.bigAvatar)}
+                    />
+                  </Button>
                 </div>
               </Toolbar>
             </AppBar>
