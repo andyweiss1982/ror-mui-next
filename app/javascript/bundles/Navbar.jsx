@@ -15,6 +15,7 @@ import ChevronRightIcon from 'material-ui-icons/ChevronRight';
 import Theme from './Theme';
 import Avatar from 'material-ui/Avatar';
 import Button from 'material-ui/Button';
+import Menu, { MenuItem } from 'material-ui/Menu'
 import { mailFolderListItems, otherMailFolderListItems } from './tileData';
 
 const drawerWidth = 240;
@@ -101,9 +102,12 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
   },
+  button: {
+    margin: 0,
+    paddingLeft: 32,
+    paddingRight: 8
+  },
   avatar: {
-    marginTop: 9,
-    marginBottom: 9,
     marginLeft: 24,
     marginRight: 24,
     width: 45,
@@ -113,15 +117,24 @@ const styles = theme => ({
 
 class Navbar extends React.Component {
   state = {
-    open: false,
+    drawer: {open: false},
+    menu:   {open: false, anchorEl: null}
   };
 
   handleDrawerOpen = () => {
-    this.setState({ open: true });
+    this.setState({ drawer: {open: true }});
   };
 
   handleDrawerClose = () => {
-    this.setState({ open: false });
+    this.setState({ drawer: {open: false }});
+  };
+
+  handleMenuClick = event => {
+    this.setState({ menu: {open: true, anchorEl: event.currentTarget }});
+  };
+
+  handleMenuRequestClose = () => {
+    this.setState({ menu: {open: false }});
   };
 
   render() {
@@ -130,13 +143,13 @@ class Navbar extends React.Component {
       <Theme>
         <div className={classes.root}>
           <div className={classes.appFrame}>
-            <AppBar className={classNames(classes.appBar, this.state.open && classes.appBarShift)}>
-              <Toolbar disableGutters={!this.state.open}>
+            <AppBar className={classNames(classes.appBar, this.state.drawer.open && classes.appBarShift)}>
+              <Toolbar disableGutters={!this.state.drawer.open}>
                 <IconButton
                   color="contrast"
                   aria-label="open drawer"
                   onClick={this.handleDrawerOpen}
-                  className={classNames(classes.menuButton, this.state.open && classes.hide)}
+                  className={classNames(classes.menuButton, this.state.drawer.open && classes.hide)}
                 >
                   <MenuIcon />
                 </IconButton>
@@ -144,7 +157,13 @@ class Navbar extends React.Component {
                   Demo Application
                 </Typography>
                 <div className={classes.toolBarRight}>
-                  <Button color="contrast">
+                  <Button
+                    className={classes.button}
+                    color="contrast"
+                    aria-owns={this.state.menu.open ? 'user-menu' : null}
+                    aria-haspopup="true"
+                    onClick={this.handleMenuClick}
+                  >
                     <Typography type="subheading" color="inherit" noWrap>
                       {this.props.current_user.email}
                     </Typography>
@@ -154,15 +173,25 @@ class Navbar extends React.Component {
                       className={classNames(classes.avatar, classes.bigAvatar)}
                     />
                   </Button>
+                  <Menu
+                    id="user-menu"
+                    anchorEl={this.state.menu.anchorEl}
+                    open={this.state.menu.open}
+                    onRequestClose={this.handleMenuRequestClose}
+                  >
+                    <MenuItem onClick={this.handleMenuRequestClose}>Profile</MenuItem>
+                    <MenuItem onClick={this.handleMenuRequestClose}>My account</MenuItem>
+                    <MenuItem onClick={this.handleMenuRequestClose}>Logout</MenuItem>
+                  </Menu>
                 </div>
               </Toolbar>
             </AppBar>
             <Drawer
               type="permanent"
               classes={{
-                paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
+                paper: classNames(classes.drawerPaper, !this.state.drawer.open && classes.drawerPaperClose),
               }}
-              open={this.state.open}
+              open={this.state.drawer.open}
             >
               <div className={classes.drawerInner}>
                 <div className={classes.drawerHeader}>
