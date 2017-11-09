@@ -139,12 +139,17 @@ class Navbar extends React.Component {
   };
 
   handleMenuClick = event => {
-    this.setState({ menu: {open: true, anchorEl: event.currentTarget }});
+    let open = this.state.menu.open;
+    this.setState({ menu: {open: !open, anchorEl: open ? null : event.currentTarget }});
   };
 
   handleMenuRequestClose = () => {
-    this.setState({ menu: {open: false }});
+    this.setState({ menu: {open: false, anchorEl: null }});
   };
+
+  handleLogout = () => {
+    window.location.href='/users/sign_out'
+  }
 
   render() {
     const { classes, theme } = this.props;
@@ -166,6 +171,7 @@ class Navbar extends React.Component {
                   Demo Application
                 </Typography>
                 <div className={classes.toolBarRight}>
+                  <ClickAwayListener onClickAway={this.handleMenuRequestClose}>
                   <Manager>
                     <Target>
                       <Button
@@ -186,28 +192,20 @@ class Navbar extends React.Component {
                       </Button>
                     </Target>
                     <Popper placement="bottom-end" eventsEnabled={this.state.menu.open}>
-                      <ClickAwayListener onClickAway={this.handleMenuRequestClose}>
+
                         <Grow in={this.state.menu.open} id="user-list" style={{ transformOrigin: '0 0 0' }}>
                           <Paper>
                             <MenuList role="menu">
                               <MenuItem onClick={this.handleMenuRequestClose}>Profile</MenuItem>
                               <MenuItem onClick={this.handleMenuRequestClose}>My account</MenuItem>
-                              <MenuItem>
-                                <a
-                                  rel="nofollow"
-                                  data-method="delete"
-                                  href="/users/sign_out"
-                                  className={classes.menuLink}
-                                >
-                                  Logout
-                                </a>
-                              </MenuItem>
+                              <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
                             </MenuList>
                           </Paper>
                         </Grow>
-                      </ClickAwayListener>
+
                     </Popper>
                   </Manager>
+                  </ClickAwayListener>
                 </div>
               </Toolbar>
             </AppBar>
