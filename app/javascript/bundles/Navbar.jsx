@@ -14,6 +14,13 @@ import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
 import ChevronRightIcon from 'material-ui-icons/ChevronRight';
 import Theme from './Theme';
 import Avatar from 'material-ui/Avatar';
+import Button from 'material-ui/Button';
+import Menu, { MenuItem, MenuList } from 'material-ui/Menu'
+import { Manager, Target, Popper } from 'react-popper';
+import ClickAwayListener from 'material-ui/utils/ClickAwayListener';
+import Grow from 'material-ui/transitions/Grow';
+import Paper from 'material-ui/Paper';
+
 import { mailFolderListItems, otherMailFolderListItems } from './tileData';
 
 const drawerWidth = 240;
@@ -100,27 +107,44 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
   },
+  button: {
+    margin: 0,
+    paddingLeft: 32,
+    paddingRight: 8
+  },
   avatar: {
-    marginTop: 9,
-    marginBottom: 9,
     marginLeft: 24,
     marginRight: 24,
     width: 45,
     height: 45,
+  },
+  menuLink: {
+    textDecoration: 'none',
+    color: theme.palette.text.primary,
   }
 });
 
 class Navbar extends React.Component {
   state = {
-    open: false,
+    drawer: {open: false},
+    menu:   {open: false, anchorEl: null}
   };
 
   handleDrawerOpen = () => {
-    this.setState({ open: true });
+    this.setState({ drawer: {open: true }});
   };
 
   handleDrawerClose = () => {
-    this.setState({ open: false });
+    this.setState({ drawer: {open: false }});
+  };
+
+  handleMenuClick = event => {
+    let open = this.state.menu.open;
+    this.setState({ menu: {open: !open, anchorEl: open ? null : event.currentTarget }});
+  };
+
+  handleMenuRequestClose = () => {
+    this.setState({ menu: {open: false, anchorEl: null }});
   };
 
   render() {
@@ -129,13 +153,13 @@ class Navbar extends React.Component {
       <Theme>
         <div className={classes.root}>
           <div className={classes.appFrame}>
-            <AppBar className={classNames(classes.appBar, this.state.open && classes.appBarShift)}>
-              <Toolbar disableGutters={!this.state.open}>
+            <AppBar className={classNames(classes.appBar, this.state.drawer.open && classes.appBarShift)}>
+              <Toolbar disableGutters={!this.state.drawer.open}>
                 <IconButton
                   color="contrast"
                   aria-label="open drawer"
                   onClick={this.handleDrawerOpen}
-                  className={classNames(classes.menuButton, this.state.open && classes.hide)}
+                  className={classNames(classes.menuButton, this.state.drawer.open && classes.hide)}
                 >
                   <MenuIcon />
                 </IconButton>
@@ -143,23 +167,50 @@ class Navbar extends React.Component {
                   Demo Application
                 </Typography>
                 <div className={classes.toolBarRight}>
-                  <Typography type="subheading" color="inherit" noWrap>
-                    Current User
-                  </Typography>
-                  <Avatar
-                    alt="Current user"
-                    src="/avatar-missing.jpg"
-                    className={classNames(classes.avatar, classes.bigAvatar)}
-                  />
+                  <ClickAwayListener onClickAway={this.handleMenuRequestClose}>
+                    <Manager>
+                      <Target>
+                        <Button
+                          className={classes.button}
+                          color="contrast"
+                          aria-owns={this.state.menu.open ? 'user-list' : null}
+                          aria-haspopup="true"
+                          onClick={this.handleMenuClick}
+                        >
+                          <Typography type="subheading" color="inherit" noWrap>
+                            {this.props.current_user.email}
+                          </Typography>
+                          <Avatar
+                            alt={this.props.current_user.email}
+                            src="/avatar-missing.jpg"
+                            className={classes.avatar}
+                          />
+                        </Button>
+                      </Target>
+                      <Popper placement="bottom-end" eventsEnabled={this.state.menu.open}>
+                        <Grow in={this.state.menu.open} id="user-list" style={{ transformOrigin: '0 0 0' }}>
+                          <Paper>
+                            <MenuList role="menu">
+                              <MenuItem onClick={this.handleMenuRequestClose}>Profile</MenuItem>
+                              <MenuItem onClick={this.handleMenuRequestClose}>My account</MenuItem>
+                              <a rel="nofollow" data-method="delete" href="/users/sign_out" className={classes.menuLink}>
+                                <MenuItem>Logout</MenuItem>
+                              </a>
+                            </MenuList>
+                          </Paper>
+                        </Grow>
+                      </Popper>
+                    </Manager>
+                  </ClickAwayListener>
                 </div>
               </Toolbar>
             </AppBar>
             <Drawer
               type="permanent"
               classes={{
-                paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
+                paper: classNames(classes.drawerPaper, !this.state.drawer.open && classes.drawerPaperClose),
               }}
-              open={this.state.open}
+              open={this.state.drawer.open}
             >
               <div className={classes.drawerInner}>
                 <div className={classes.drawerHeader}>
