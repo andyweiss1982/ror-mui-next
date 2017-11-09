@@ -120,7 +120,7 @@ const styles = theme => ({
   },
   menuLink: {
     textDecoration: 'none',
-    color: theme.palette.common.black,
+    color: theme.palette.text.primary,
   }
 });
 
@@ -147,10 +147,6 @@ class Navbar extends React.Component {
     this.setState({ menu: {open: false, anchorEl: null }});
   };
 
-  handleLogout = () => {
-    window.location.href='/users/sign_out'
-  }
-
   render() {
     const { classes, theme } = this.props;
     return (
@@ -172,39 +168,39 @@ class Navbar extends React.Component {
                 </Typography>
                 <div className={classes.toolBarRight}>
                   <ClickAwayListener onClickAway={this.handleMenuRequestClose}>
-                  <Manager>
-                    <Target>
-                      <Button
-                        className={classes.button}
-                        color="contrast"
-                        aria-owns={this.state.menu.open ? 'user-list' : null}
-                        aria-haspopup="true"
-                        onClick={this.handleMenuClick}
-                      >
-                        <Typography type="subheading" color="inherit" noWrap>
-                          {this.props.current_user.email}
-                        </Typography>
-                        <Avatar
-                          alt={this.props.current_user.email}
-                          src="/avatar-missing.jpg"
-                          className={classes.avatar}
-                        />
-                      </Button>
-                    </Target>
-                    <Popper placement="bottom-end" eventsEnabled={this.state.menu.open}>
-
+                    <Manager>
+                      <Target>
+                        <Button
+                          className={classes.button}
+                          color="contrast"
+                          aria-owns={this.state.menu.open ? 'user-list' : null}
+                          aria-haspopup="true"
+                          onClick={this.handleMenuClick}
+                        >
+                          <Typography type="subheading" color="inherit" noWrap>
+                            {this.props.current_user.email}
+                          </Typography>
+                          <Avatar
+                            alt={this.props.current_user.email}
+                            src="/avatar-missing.jpg"
+                            className={classes.avatar}
+                          />
+                        </Button>
+                      </Target>
+                      <Popper placement="bottom-end" eventsEnabled={this.state.menu.open}>
                         <Grow in={this.state.menu.open} id="user-list" style={{ transformOrigin: '0 0 0' }}>
                           <Paper>
                             <MenuList role="menu">
                               <MenuItem onClick={this.handleMenuRequestClose}>Profile</MenuItem>
                               <MenuItem onClick={this.handleMenuRequestClose}>My account</MenuItem>
-                              <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+                              <a rel="nofollow" data-method="delete" href="/users/sign_out" className={classes.menuLink}>
+                                <MenuItem>Logout</MenuItem>
+                              </a>
                             </MenuList>
                           </Paper>
                         </Grow>
-
-                    </Popper>
-                  </Manager>
+                      </Popper>
+                    </Manager>
                   </ClickAwayListener>
                 </div>
               </Toolbar>
