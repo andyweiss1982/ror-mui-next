@@ -1,1 +1,8 @@
-<%= react_component('Dashboard', props: {current_user: current_user}) %>
+<%= react_component(
+    'Dashboard',
+    props:  {
+              current_user: current_user,
+              notice:       flash[:notice],
+              alert:        flash[:alert]
+            }
+) %>
