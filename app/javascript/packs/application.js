@@ -12,11 +12,13 @@ import ReactOnRails from 'react-on-rails';
 import Login from '../bundles/Devise/Login';
 import Signup from '../bundles/Devise/Signup';
 import ForgotPassword from '../bundles/Devise/ForgotPassword';
+import ChangePassword from '../bundles/Devise/ChangePassword';
 import Dashboard from '../bundles/Dashboard';
 
 ReactOnRails.register({
   Login,
   Signup,
   ForgotPassword,
+  ChangePassword,
   Dashboard
 });
