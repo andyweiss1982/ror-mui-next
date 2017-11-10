@@ -1,2 +1,5 @@
-<%= react_component('Login', props: { alert: flash[:alert] }) %>
+<%= react_component(
+    'Login',
+    props: { alert: flash[:alert], notice: flash[:notice] }
+) %>
 

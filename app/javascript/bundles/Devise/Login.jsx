@@ -37,7 +37,8 @@ class Login extends React.Component {
   }
 
   handleForgotPassword = () => {
-    window.location.href = "/users/password/new";
+    Turbolinks.clearCache();
+    Turbolinks.visit("/users/password/new", {"action": "replace"});
   }
 
   handleChange = () => {
@@ -47,7 +48,7 @@ class Login extends React.Component {
   render(){
     const { classes } = this.props;
     return(
-      <Layout>
+      <Layout notice={this.props.notice}>
         <Card className={classes.card}>
           <CardHeader title={"Log In"}/>
           <form

@@ -1,0 +1,3 @@
+<% flash[:alert] = resource.errors.present? ? resource.errors.full_messages.join(', ') : nil %>
+Turbolinks.clearCache()
+Turbolinks.visit("<%= response.location %>", { "action": "replace" })

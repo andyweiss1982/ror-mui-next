@@ -88,7 +88,7 @@ class Dashboard extends React.Component {
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',
-            horizontal: 'right',
+            horizontal: 'center',
           }}
           open={this.state.alert.open}
           autoHideDuration={4000}
@@ -114,7 +114,7 @@ class Dashboard extends React.Component {
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',
-            horizontal: 'right',
+            horizontal: 'center',
           }}
           open={this.state.notice.open}
           autoHideDuration={4000}
