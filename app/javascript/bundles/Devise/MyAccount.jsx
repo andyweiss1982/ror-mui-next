@@ -82,6 +82,26 @@ class MyAccount extends React.Component {
     this.setState({ dialog: {open: false }});
   };
 
+  handleChange = event => {
+    const self = this;
+    let nextAlert = self.state.alert;
+    if(event.target.id === "user_password"){
+      if(event.target.value.length < self.props.minimum_password_length){
+        nextAlert.password = `too short (minimum ${self.props.minimum_password_length} characters)`;
+      }else{
+        nextAlert.password = undefined;
+      }
+    }
+    if(event.target.id === "user_password_confirmation"){
+      if(event.target.value !== document.getElementById('user_password').value){
+        nextAlert.password_confirmation = "doesn't match password";
+      }else{
+        nextAlert.password_confirmation = undefined;
+      }
+    }
+    self.setState({alert: nextAlert})
+  }
+
   render(){
     const { classes } = this.props;
     return (
