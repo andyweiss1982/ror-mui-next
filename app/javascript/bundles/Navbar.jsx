@@ -20,6 +20,7 @@ import { Manager, Target, Popper } from 'react-popper';
 import ClickAwayListener from 'material-ui/utils/ClickAwayListener';
 import Grow from 'material-ui/transitions/Grow';
 import Paper from 'material-ui/Paper';
+import Hidden from 'material-ui/Hidden';
 
 import { mailFolderListItems, otherMailFolderListItems } from './tileData';
 
@@ -177,9 +178,11 @@ class Navbar extends React.Component {
                           aria-haspopup="true"
                           onClick={this.handleMenuClick}
                         >
-                          <Typography type="subheading" color="inherit" noWrap>
-                            {this.props.current_user.email}
-                          </Typography>
+                          <Hidden only="xs">
+                            <Typography type="subheading" color="inherit" noWrap>
+                              {this.props.current_user.email}
+                            </Typography>
+                          </Hidden>
                           <Avatar
                             alt={this.props.current_user.email}
                             src="/avatar-missing.jpg"
