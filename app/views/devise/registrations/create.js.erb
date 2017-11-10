@@ -1,9 +1,7 @@
 Turbolinks.clearCache()
-<% if user_signed_in? %>
-  Turbolinks.visit("<%= response.location %>", { "action": "replace" })
-<% else %>
+<% if !user_signed_in? %>
   <% flash[:email]                  = resource.errors[:email] %>
   <% flash[:password]               = resource.errors[:password] %>
   <% flash[:password_confirmation]  = resource.errors[:password_confirmation] %>
-  Turbolinks.visit("<%= new_user_registration_path %>", { "action": "replace" })
 <% end %>
+Turbolinks.visit("<%= response.location %>", { "action": "replace" })
