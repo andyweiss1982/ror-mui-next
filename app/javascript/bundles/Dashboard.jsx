@@ -51,7 +51,6 @@ class Dashboard extends React.Component {
 
   render(){
     const { classes } = this.props;
-    console.log(classes.notice);
     return (
       <Navbar current_user={this.props.current_user}>
         <div className={classes.root}>

@@ -24,11 +24,10 @@ const styles = theme => ({
   },
 });
 
-class Signup extends React.Component {
+class ChangePassword extends React.Component {
 
   state = {
     alert: {
-      email: this.props.alert.email || undefined,
       password: this.props.alert.password || undefined,
       password_confirmation: this.props.alert.password_confirmation || undefined
     }
@@ -39,9 +38,9 @@ class Signup extends React.Component {
     Turbolinks.visit("/users/sign_in", {"action": "replace"})
   }
 
-  handleForgotPassword = () => {
+  handleSignup = () => {
     Turbolinks.clearCache();
-    Turbolinks.visit("/users/password/new", {"action": "replace"});
+    Turbolinks.visit("/users/sign_up", {"action": "replace"});
   }
 
   handleChange = event => {
@@ -69,28 +68,25 @@ class Signup extends React.Component {
     return(
       <Layout>
         <Card className={classes.card}>
-          <CardHeader title={"Sign Up"}/>
+          <CardHeader title={"Change Password"}/>
           <form
             className="new_user"
             id="new_user"
-            action="/users"
+            action="/users/password"
             acceptCharset="UTF-8"
             data-remote="true"
             method="post"
           >
             <CardContent>
+              <input type="hidden" name="_method" value="put"></input>
               <input name="utf8" type="hidden" value="✓"></input>
-              <div className="field">
-                <FormControl
-                  fullWidth
-                  className={classes.formControl}
-                  error={this.state.alert.email ? true : false}
-                >
-                  <InputLabel htmlFor="user[email]">Email</InputLabel>
-                  <Input name="user[email]" onChange={this.handleChange}/>
-                  <FormHelperText>{this.state.alert.email ? this.state.alert.email : undefined}</FormHelperText>
-                </FormControl>
-              </div>
+              <input
+                id="user_reset_password_token"
+                name="user[reset_password_token]"
+                type="hidden"
+                value={this.props.reset_password_token}
+              >
+              </input>
               <div className="field">
                 <FormControl
                   fullWidth
@@ -126,8 +122,8 @@ class Signup extends React.Component {
               <Button color="primary" onClick={this.handleSignin}>
                 Sign In
               </Button>
-              <Button color="primary" onClick={this.handleForgotPassword}>
-                Forgot Password?
+              <Button color="primary" onClick={this.handleSignup}>
+                Sign Up
               </Button>
               <div style={{marginLeft: 'auto'}}>
                 <Button
@@ -135,10 +131,10 @@ class Signup extends React.Component {
                   color="primary"
                   type="submit"
                   name="commit"
-                  value="Sign up"
-                  data-disable-with="Sign up"
+                  value="Change Password"
+                  data-disable-with="Change Password"
                 >
-                  Sign Up
+                  Change Password
                 </Button>
               </div>
             </CardActions>
@@ -149,9 +145,9 @@ class Signup extends React.Component {
   }
 }
 
-Signup.propTypes = {
+ChangePassword.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Signup);
+export default withStyles(styles)(ChangePassword);
 

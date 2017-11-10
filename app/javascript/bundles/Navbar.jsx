@@ -148,6 +148,11 @@ class Navbar extends React.Component {
     this.setState({ menu: {open: false, anchorEl: null }});
   };
 
+  handleMyAccount = () => {
+    Turbolinks.clearCache();
+    Turbolinks.visit('/users/edit', {"action": "replace"});
+  }
+
   render() {
     const { classes, theme } = this.props;
     return (
@@ -194,8 +199,7 @@ class Navbar extends React.Component {
                         <Grow in={this.state.menu.open} id="user-list" style={{ transformOrigin: '0 0 0' }}>
                           <Paper>
                             <MenuList role="menu">
-                              <MenuItem onClick={this.handleMenuRequestClose}>Profile</MenuItem>
-                              <MenuItem onClick={this.handleMenuRequestClose}>My account</MenuItem>
+                              <MenuItem onClick={this.handleMyAccount}>My Account</MenuItem>
                               <a rel="nofollow" data-method="delete" href="/users/sign_out" className={classes.menuLink}>
                                 <MenuItem>Logout</MenuItem>
                               </a>
