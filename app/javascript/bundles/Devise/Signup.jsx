@@ -44,8 +44,26 @@ class Signup extends React.Component {
     Turbolinks.visit("/users/password/new", {"action": "replace"});
   }
 
-  handleChange = () => {
-    this.setState({alert: {email: undefined, password: undefined, password_confirmation: undefined}})
+  handleChange = event => {
+    const self = this;
+    let nextAlert = self.state.alert;
+    if(event.target.id === "user_password"){
+      if(event.target.value.length < self.props.minimum_password_length){
+        nextAlert.password = `too short (minimum ${self.props.minimum_password_length} characters)`;
+      }else{
+        nextAlert.password = undefined;
+      }
+    }
+    if(event.target.id === "user_password_confirmation"){
+      console.log('user_password_confirmation');
+      if(event.target.value !== document.getElementById('user_password').value){
+        console.log('doesnt match');
+        nextAlert.password_confirmation = "doesn't match password";
+      }else{
+        nextAlert.password_confirmation = undefined;
+      }
+    }
+    self.setState({alert: nextAlert})
   }
 
   render(){
@@ -81,7 +99,12 @@ class Signup extends React.Component {
                   className={classes.formControl}
                   error={this.state.alert.password ? true : false}
                 >
-                  <PasswordField name="user[password]" placeholder="Password" onChange={this.handleChange}/>
+                  <PasswordField
+                    id="user_password"
+                    name="user[password]"
+                    placeholder="Password"
+                    onChange={this.handleChange}
+                  />
                   <FormHelperText>{this.state.alert.password ? this.state.alert.password : `${this.props.minimum_password_length} characters minimum`}</FormHelperText>
                 </FormControl>
               </div>
@@ -91,8 +114,13 @@ class Signup extends React.Component {
                   className={classes.formControl}
                   error={this.state.alert.password_confirmation ? true : false}
                 >
-                  <PasswordField name="user[password_confirmation]" placeholder="Password Confirmation" onChange={this.handleChange}/>
-                  <FormHelperText>{this.state.alert.password_confirmation ? this.state.alert.password_confirmation : undefined}</FormHelperText>
+                  <PasswordField
+                    id="user_password_confirmation"
+                    name="user[password_confirmation]"
+                    placeholder="Password Confirmation"
+                    onChange={this.handleChange}
+                  />
+                  <FormHelperText>{this.state.alert.password_confirmation}</FormHelperText>
                 </FormControl>
               </div>
             </CardContent>
