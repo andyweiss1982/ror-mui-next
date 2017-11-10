@@ -58,27 +58,27 @@ class Dashboard extends React.Component {
             <Grid item xs={12} sm={7}>
               <Paper className={classes.paper}>
                 <Typography type="headline" component="h3">
-                  Some Important Stuff
+                  Headline 1
                 </Typography>
                 <Typography type="body1" component="p">
-                  Yadda Yadda Yadda
+                  Body Text
                 </Typography>
               </Paper>
             </Grid>
             <Grid item xs={12} sm={5}>
               <Paper className={classes.paper}>
                 <Typography type="headline" component="h3">
-                  Less Important Stuff
+                  Headline 2
                 </Typography>
                 <Typography type="body1" component="p">
-                  Yadda Yadda Yadda
+                  Body Text
                 </Typography>
               </Paper>
             </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <Typography type="headline" component="h3">
-                  A Big Datatable
+                  Big Datatable
                 </Typography>
               </Paper>
             </Grid>

@@ -153,6 +153,11 @@ class Navbar extends React.Component {
     Turbolinks.visit('/users/edit', {"action": "replace"});
   }
 
+  handleTitleClick = () => {
+    Turbolinks.clearCache();
+    Turbolinks.visit('/', {"action": "replace"});
+  }
+
   render() {
     const { classes, theme } = this.props;
     return (
@@ -169,9 +174,11 @@ class Navbar extends React.Component {
                 >
                   <MenuIcon />
                 </IconButton>
-                <Typography type="title" color="inherit" noWrap>
-                  Demo Application
-                </Typography>
+                <Button color="contrast" onClick={this.handleTitleClick}>
+                  <Typography type="title" color="inherit" noWrap>
+                    Demo Application
+                  </Typography>
+                </Button>
                 <div className={classes.toolBarRight}>
                   <ClickAwayListener onClickAway={this.handleMenuRequestClose}>
                     <Manager>

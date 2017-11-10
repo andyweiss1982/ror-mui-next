@@ -8,6 +8,7 @@ import Theme from '../Theme';
 import Snackbar from 'material-ui/Snackbar';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
+import Button from 'material-ui/Button';
 
 const styles = theme => ({
   root: {
@@ -42,6 +43,11 @@ class Layout extends React.Component {
     });
   };
 
+  handleTitleClick = () => {
+    Turbolinks.clearCache();
+    Turbolinks.visit("/users/sign_in", {"action": "replace"});
+  }
+
   render(){
     const { classes } = this.props;
     return(
@@ -49,9 +55,11 @@ class Layout extends React.Component {
         <div className={classes.root}>
           <AppBar position="static">
             <Toolbar>
-              <Typography type="title" color="inherit">
-                Demo Application
-              </Typography>
+              <Button color="contrast" onClick={this.handleTitleClick}>
+                <Typography type="title" color="inherit">
+                  Demo Application
+                </Typography>
+              </Button>
             </Toolbar>
           </AppBar>
           <div className={classes.aligner} >
