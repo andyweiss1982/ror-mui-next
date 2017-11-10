@@ -24,14 +24,9 @@ const styles = theme => ({
   },
 });
 
-class Signup extends React.Component {
-
+class ForgotPassword extends React.Component {
   state = {
-    alert: {
-      email: this.props.alert.email || undefined,
-      password: this.props.alert.password || undefined,
-      password_confirmation: this.props.alert.password_confirmation || undefined
-    }
+    alert: this.props.alert
   }
 
   handleSignin = () => {
@@ -39,13 +34,13 @@ class Signup extends React.Component {
     Turbolinks.visit("/users/sign_in", {"action": "replace"})
   }
 
-  handleForgotPassword = () => {
+  handleSignup = () => {
     Turbolinks.clearCache();
-    Turbolinks.visit("/users/password/new", {"action": "replace"});
+    Turbolinks.visit("/users/sign_up", {"action": "replace"})
   }
 
   handleChange = () => {
-    this.setState({alert: {email: undefined, password: undefined, password_confirmation: undefined}})
+    this.setState({alert: undefined})
   }
 
   render(){
@@ -53,11 +48,11 @@ class Signup extends React.Component {
     return(
       <Layout>
         <Card className={classes.card}>
-          <CardHeader title={"Sign Up"}/>
+          <CardHeader title={"Forgot Password"}/>
           <form
             className="new_user"
             id="new_user"
-            action="/users"
+            action="/users/password"
             acceptCharset="UTF-8"
             data-remote="true"
             method="post"
@@ -68,31 +63,11 @@ class Signup extends React.Component {
                 <FormControl
                   fullWidth
                   className={classes.formControl}
-                  error={this.state.alert.email ? true : false}
+                  error={this.state.alert ? true : false}
                 >
                   <InputLabel htmlFor="user[email]">Email</InputLabel>
                   <Input name="user[email]" onChange={this.handleChange}/>
-                  <FormHelperText>{this.state.alert.email ? this.state.alert.email : undefined}</FormHelperText>
-                </FormControl>
-              </div>
-              <div className="field">
-                <FormControl
-                  fullWidth
-                  className={classes.formControl}
-                  error={this.state.alert.password ? true : false}
-                >
-                  <PasswordField name="user[password]" placeholder="Password" onChange={this.handleChange}/>
-                  <FormHelperText>{this.state.alert.password ? this.state.alert.password : `${this.props.minimum_password_length} characters minimum`}</FormHelperText>
-                </FormControl>
-              </div>
-              <div className="field">
-                <FormControl
-                  fullWidth
-                  className={classes.formControl}
-                  error={this.state.alert.password_confirmation ? true : false}
-                >
-                  <PasswordField name="user[password_confirmation]" placeholder="Password Confirmation" onChange={this.handleChange}/>
-                  <FormHelperText>{this.state.alert.password_confirmation ? this.state.alert.password_confirmation : undefined}</FormHelperText>
+                  <FormHelperText>{this.state.alert}</FormHelperText>
                 </FormControl>
               </div>
             </CardContent>
@@ -100,8 +75,8 @@ class Signup extends React.Component {
               <Button color="primary" onClick={this.handleSignin}>
                 Sign In
               </Button>
-              <Button color="primary" onClick={this.handleForgotPassword}>
-                Forgot Password?
+              <Button color="primary" onClick={this.handleSignup}>
+                Sign Up
               </Button>
               <div style={{marginLeft: 'auto'}}>
                 <Button
@@ -109,10 +84,10 @@ class Signup extends React.Component {
                   color="primary"
                   type="submit"
                   name="commit"
-                  value="Sign up"
-                  data-disable-with="Sign up"
+                  value="Reset password"
+                  data-disable-with="Reset password"
                 >
-                  Sign Up
+                  Reset password
                 </Button>
               </div>
             </CardActions>
@@ -123,9 +98,8 @@ class Signup extends React.Component {
   }
 }
 
-Signup.propTypes = {
+ForgotPassword.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Signup);
-
+export default withStyles(styles)(ForgotPassword);
