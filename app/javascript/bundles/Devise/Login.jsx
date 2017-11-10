@@ -88,10 +88,10 @@ class Login extends React.Component {
               />
             </CardContent>
             <CardActions>
-              <Button color="accent" onClick={this.handleSignup}>
+              <Button color="primary" onClick={this.handleSignup}>
                 Sign Up
               </Button>
-              <Button color="accent" onClick={this.handleForgotPassword}>
+              <Button color="primary" onClick={this.handleForgotPassword}>
                 Forgot Password?
               </Button>
               <div style={{marginLeft: 'auto'}}>

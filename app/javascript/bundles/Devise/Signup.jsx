@@ -96,10 +96,10 @@ class Signup extends React.Component {
               </div>
             </CardContent>
             <CardActions>
-              <Button color="accent" onClick={this.handleSignin}>
+              <Button color="primary" onClick={this.handleSignin}>
                 Sign In
               </Button>
-              <Button color="accent" onClick={this.handleForgotPassword}>
+              <Button color="primary" onClick={this.handleForgotPassword}>
                 Forgot Password?
               </Button>
               <div style={{marginLeft: 'auto'}}>
