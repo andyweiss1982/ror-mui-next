@@ -52,7 +52,7 @@ class Signup extends React.Component {
     return(
       <Layout>
         <Card className={classes.card}>
-          <CardHeader title={"Log In"}/>
+          <CardHeader title={"Sign Up"}/>
           <form
             className="new_user"
             id="new_user"
