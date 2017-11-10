@@ -105,6 +105,7 @@ class MyAccount extends React.Component {
                     fullWidth
                     className={classes.formControl}
                     error={this.state.alert.email ? true : false}
+                    required
                   >
                     <InputLabel htmlFor="user[email]">Email</InputLabel>
                     <Input
