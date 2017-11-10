@@ -17,11 +17,13 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
   },
-  paper: {
+  card: {
     padding: 16,
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    minHeight: '370px'
+    minHeight: '370px',
+    minWidth: '40%',
+    maxWidth: '90%',
   },
   close: {
     width: theme.spacing.unit * 4,
@@ -43,8 +45,15 @@ const styles = theme => ({
 
 class MyAccount extends React.Component {
   state = {
-            alert:  {open: this.props.alert ? true : false},
-            notice: {open: this.props.notice ? true : false}
+            notice: {
+              open: this.props.notice ? true : false
+            },
+            alert:  {
+              email: this.props.alert.email || undefined,
+              password: this.props.alert.password || undefined,
+              password_confirmation: this.props.alert.password_confirmation || undefined,
+              current_password: this.props.alert.current_password || undefined
+            }
           };
 
   handleAlertRequestClose = () => {
@@ -66,11 +75,11 @@ class MyAccount extends React.Component {
       <Navbar current_user={this.props.current_user}>
         <div className={classes.aligner} >
           <Card className={classes.card}>
-            <CardHeader title={"Change Password"}/>
+            <CardHeader title={"Update Account"}/>
             <form
               className="new_user"
               id="new_user"
-              action="/users/password"
+              action="/users"
               acceptCharset="UTF-8"
               data-remote="true"
               method="post"
@@ -78,13 +87,21 @@ class MyAccount extends React.Component {
               <CardContent>
                 <input type="hidden" name="_method" value="put"></input>
                 <input name="utf8" type="hidden" value="✓"></input>
-                <input
-                  id="user_reset_password_token"
-                  name="user[reset_password_token]"
-                  type="hidden"
-                  value={this.props.reset_password_token}
-                >
-                </input>
+                <div className="field">
+                  <FormControl
+                    fullWidth
+                    className={classes.formControl}
+                    error={this.state.alert.email ? true : false}
+                  >
+                    <InputLabel htmlFor="user[email]">Email</InputLabel>
+                    <Input
+                      name="user[email]"
+                      defaultValue={this.props.current_user.email}
+                      onChange={this.handleChange}
+                    />
+                    <FormHelperText>{this.state.alert.email}</FormHelperText>
+                  </FormControl>
+                </div>
                 <div className="field">
                   <FormControl
                     fullWidth
@@ -112,27 +129,37 @@ class MyAccount extends React.Component {
                       placeholder="Password Confirmation"
                       onChange={this.handleChange}
                     />
-                    <FormHelperText>{this.state.alert.password_confirmation ? this.state.alert.password_confirmation : undefined}</FormHelperText>
+                    <FormHelperText>{this.state.alert.password_confirmation}</FormHelperText>
+                  </FormControl>
+                </div>
+                <div className="field">
+                  <FormControl
+                    fullWidth
+                    className={classes.formControl}
+                    error={this.state.alert.current_password ? true : false}
+                    required
+                  >
+                    <PasswordField
+                      id="user_current_password"
+                      name="user[current_password]"
+                      placeholder="Current Password"
+                      onChange={this.handleChange}
+                    />
+                    <FormHelperText>{this.state.alert.current_password}</FormHelperText>
                   </FormControl>
                 </div>
               </CardContent>
               <CardActions>
-                <Button color="primary" onClick={this.handleSignin}>
-                  Sign In
-                </Button>
-                <Button color="primary" onClick={this.handleSignup}>
-                  Sign Up
-                </Button>
                 <div style={{marginLeft: 'auto'}}>
                   <Button
                     raised
                     color="primary"
                     type="submit"
                     name="commit"
-                    value="Change Password"
-                    data-disable-with="Change Password"
+                    value="Update"
+                    data-disable-with="Update"
                   >
-                    Change Password
+                    Update
                   </Button>
                 </div>
               </CardActions>

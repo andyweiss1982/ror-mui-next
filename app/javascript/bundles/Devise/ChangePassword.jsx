@@ -116,7 +116,7 @@ class ChangePassword extends React.Component {
                     placeholder="Password Confirmation"
                     onChange={this.handleChange}
                   />
-                  <FormHelperText>{this.state.alert.password_confirmation ? this.state.alert.password_confirmation : undefined}</FormHelperText>
+                  <FormHelperText>{this.state.alert.password_confirmation}</FormHelperText>
                 </FormControl>
               </div>
             </CardContent>

@@ -1,1 +1,13 @@
-<%= react_component('MyAccount', props: {current_user: current_user}) %>
+<%= react_component(
+    'MyAccount',
+    props: {
+      current_user:             current_user,
+      minimum_password_length:  @minimum_password_length,
+      alert: {
+        email:                  flash[:email]&.join(', '),
+        password:               flash[:password]&.join(', '),
+        password_confirmation:  flash[:password_confirmation]&.join(', '),
+        current_password:       flash[:current_password]&.join(', ')
+      }
+    }
+) %>
