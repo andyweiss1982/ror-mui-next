@@ -12,6 +12,7 @@ import PasswordField from 'material-ui-password-field'
 import Input, { InputLabel } from 'material-ui/Input';
 import { FormControl, FormHelperText, FormControlLabel } from 'material-ui/Form';
 import Button from 'material-ui/Button';
+import Dialog, {DialogActions, DialogContent, DialogContentText, DialogTitle} from 'material-ui/Dialog';
 
 const styles = theme => ({
   root: {
@@ -21,9 +22,9 @@ const styles = theme => ({
     padding: 16,
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    minHeight: '370px',
     minWidth: '40%',
     maxWidth: '90%',
+    margin: 8
   },
   close: {
     width: theme.spacing.unit * 4,
@@ -39,7 +40,11 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '90%'
+    height: '90%',
+    flexDirection: 'column'
+  },
+  deleteButton: {
+    margin: 'auto'
   }
 });
 
@@ -53,7 +58,8 @@ class MyAccount extends React.Component {
               password: this.props.alert.password || undefined,
               password_confirmation: this.props.alert.password_confirmation || undefined,
               current_password: this.props.alert.current_password || undefined
-            }
+            },
+            dialog: {open: false}
           };
 
   handleAlertRequestClose = () => {
@@ -68,9 +74,16 @@ class MyAccount extends React.Component {
     });
   };
 
+  handleDialogOpen = () => {
+    this.setState({ dialog: {open: true }});
+  };
+
+  handleDialogClose = () => {
+    this.setState({ dialog: {open: false }});
+  };
+
   render(){
     const { classes } = this.props;
-    console.log(classes.notice);
     return (
       <Navbar current_user={this.props.current_user}>
         <div className={classes.aligner} >
@@ -165,7 +178,42 @@ class MyAccount extends React.Component {
               </CardActions>
             </form>
           </Card>
+          <Card className={classes.card}>
+            <CardHeader title={"Delete Account"}/>
+            <CardActions>
+              <Button
+                raised
+                color="accent"
+                onClick={this.handleDialogOpen}
+                className={classes.deleteButton}
+              >
+                Cancel my account
+              </Button>
+            </CardActions>
+          </Card>
         </div>
+        <Dialog open={this.state.dialog.open} onRequestClose={this.handleDialogClose}>
+          <DialogTitle>{"Delete Account"}</DialogTitle>
+          <form class="button_to" method="post" action="/users" data-remote="true">
+            <input type="hidden" name="_method" value="delete"></input>
+            <DialogActions>
+              <Button onClick={this.handleDialogClose} color="default">
+                Never Mind
+              </Button>
+              <Button
+                raised
+                autofocus
+                color="accent"
+                type="submit"
+                name="commit"
+                value="Cancel my account"
+                data-disable-with="Cancel my account"
+              >
+                Cancel my account
+              </Button>
+            </DialogActions>
+          </form>
+        </Dialog>
         <Snackbar
           anchorOrigin={{
             vertical: 'bottom',

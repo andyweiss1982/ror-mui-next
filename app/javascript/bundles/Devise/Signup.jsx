@@ -55,9 +55,7 @@ class Signup extends React.Component {
       }
     }
     if(event.target.id === "user_password_confirmation"){
-      console.log('user_password_confirmation');
       if(event.target.value !== document.getElementById('user_password').value){
-        console.log('doesnt match');
         nextAlert.password_confirmation = "doesn't match password";
       }else{
         nextAlert.password_confirmation = undefined;

@@ -1,11 +1,11 @@
 import React from 'react';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import { blue, indigo, red } from 'material-ui/colors';
+import { blue, pink, red } from 'material-ui/colors';
 
 const theme = createMuiTheme({
   palette: {
     primary:    blue,
-    secondary:  indigo,
+    secondary:  pink,
     error:      red,
   }
 });
