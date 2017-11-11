@@ -43,8 +43,8 @@ const styles = theme => ({
     height: '90%',
     flexDirection: 'column'
   },
-  deleteButton: {
-    margin: 'auto'
+  dialog: {
+    textAlign: 'center'
   }
 });
 
@@ -82,6 +82,26 @@ class MyAccount extends React.Component {
     this.setState({ dialog: {open: false }});
   };
 
+  handleChange = event => {
+    const self = this;
+    let nextAlert = self.state.alert;
+    if(event.target.id === "user_password"){
+      if(event.target.value.length < self.props.minimum_password_length){
+        nextAlert.password = `too short (minimum ${self.props.minimum_password_length} characters)`;
+      }else{
+        nextAlert.password = undefined;
+      }
+    }
+    if(event.target.id === "user_password_confirmation"){
+      if(event.target.value !== document.getElementById('user_password').value){
+        nextAlert.password_confirmation = "doesn't match password";
+      }else{
+        nextAlert.password_confirmation = undefined;
+      }
+    }
+    self.setState({alert: nextAlert})
+  }
+
   render(){
     const { classes } = this.props;
     return (
@@ -105,6 +125,7 @@ class MyAccount extends React.Component {
                     fullWidth
                     className={classes.formControl}
                     error={this.state.alert.email ? true : false}
+                    required
                   >
                     <InputLabel htmlFor="user[email]">Email</InputLabel>
                     <Input
@@ -163,37 +184,35 @@ class MyAccount extends React.Component {
                 </div>
               </CardContent>
               <CardActions>
+                <Button
+                  raised
+                  color="accent"
+                  onClick={this.handleDialogOpen}
+                >
+                  Cancel account
+                </Button>
                 <div style={{marginLeft: 'auto'}}>
                   <Button
                     raised
                     color="primary"
                     type="submit"
                     name="commit"
-                    value="Update"
-                    data-disable-with="Update"
+                    value="Update account"
+                    data-disable-with="Update account"
                   >
-                    Update
+                    Update account
                   </Button>
                 </div>
               </CardActions>
             </form>
           </Card>
-          <Card className={classes.card}>
-            <CardHeader title={"Delete Account"}/>
-            <CardActions>
-              <Button
-                raised
-                color="accent"
-                onClick={this.handleDialogOpen}
-                className={classes.deleteButton}
-              >
-                Cancel my account
-              </Button>
-            </CardActions>
-          </Card>
         </div>
-        <Dialog open={this.state.dialog.open} onRequestClose={this.handleDialogClose}>
-          <DialogTitle>{"Delete Account"}</DialogTitle>
+        <Dialog
+          open={this.state.dialog.open}
+          onRequestClose={this.handleDialogClose}
+          className={classes.dialog}
+        >
+          <DialogTitle>{"Delete Account?"}</DialogTitle>
           <form class="button_to" method="post" action="/users" data-remote="true">
             <input type="hidden" name="_method" value="delete"></input>
             <DialogActions>
@@ -206,10 +225,10 @@ class MyAccount extends React.Component {
                 color="accent"
                 type="submit"
                 name="commit"
-                value="Cancel my account"
-                data-disable-with="Cancel my account"
+                value="Confirm"
+                data-disable-with="Confirm"
               >
-                Cancel my account
+                Confirm
               </Button>
             </DialogActions>
           </form>
