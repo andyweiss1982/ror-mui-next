@@ -23,8 +23,7 @@ const styles = theme => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
     minWidth: '40%',
-    maxWidth: '90%',
-    margin: 8
+    maxWidth: '90%'
   },
   close: {
     width: theme.spacing.unit * 4,
