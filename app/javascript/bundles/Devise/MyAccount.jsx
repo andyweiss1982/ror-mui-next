@@ -128,6 +128,7 @@ class MyAccount extends React.Component {
                   >
                     <InputLabel htmlFor="user[email]">Email</InputLabel>
                     <Input
+                      id="user_email"
                       name="user[email]"
                       defaultValue={this.props.current_user.email}
                       onChange={this.handleChange}
@@ -147,7 +148,7 @@ class MyAccount extends React.Component {
                       placeholder="Password"
                       onChange={this.handleChange}
                     />
-                    <FormHelperText>{this.state.alert.password ? this.state.alert.password : `${this.props.minimum_password_length} characters minimum`}</FormHelperText>
+                    <FormHelperText>{this.state.alert.password ? this.state.alert.password : `too short (minimum is ${this.props.minimum_password_length} characters)`}</FormHelperText>
                   </FormControl>
                 </div>
                 <div className="field">

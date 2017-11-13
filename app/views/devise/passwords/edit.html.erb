@@ -4,8 +4,8 @@
               minimum_password_length:  @minimum_password_length,
               reset_password_token:     params[:reset_password_token],
               alert: {
-                password:               flash[:password]&.join(', '),
-                password_confirmation:  flash[:password_confirmation]&.join(', '),
+                password:               flash[:password],
+                password_confirmation:  flash[:password_confirmation],
               }
             }
 ) %>
