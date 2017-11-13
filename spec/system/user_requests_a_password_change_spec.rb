@@ -10,7 +10,7 @@ RSpec.describe "user requests a password change", type: :system, js: true do
       context "and his new password is long enough" do
         context "and his password confirmation matches his new password" do
           it "alerts the users that the change was successful" do
-            update_password(
+            update_password_from_my_account(
               password:               "newpassword",
               password_confirmation:  "newpassword",
               current_password:       "password"
@@ -20,7 +20,7 @@ RSpec.describe "user requests a password change", type: :system, js: true do
         end
         context "but his confirmation does not match his new password" do
           it "shows the user an error" do
-            update_password(
+            update_password_from_my_account(
               password:               "newpassword",
               password_confirmation:  "doesntmatch",
               current_password:       "password"
@@ -31,7 +31,7 @@ RSpec.describe "user requests a password change", type: :system, js: true do
       end
       context "but his new password is too short" do
         it "shows the user an error" do
-          update_password(
+          update_password_from_my_account(
             password:               "short",
             password_confirmation:  "short",
             current_password:       "password"
@@ -42,7 +42,7 @@ RSpec.describe "user requests a password change", type: :system, js: true do
     end
     context "and enters an incorrect password" do
       it "shows the user an error" do
-        update_password(
+        update_password_from_my_account(
           password:               "newpassword",
           password_confirmation:  "newpassword",
           current_password:       "wrongpassword"
@@ -52,7 +52,7 @@ RSpec.describe "user requests a password change", type: :system, js: true do
     end
     context "and does not enter his password" do
       it "prevents the user from submitting the form" do
-        update_password(
+        update_password_from_my_account(
           password:               "newpassword",
           password_confirmation:  "newpassword",
           current_password:       ""
@@ -63,19 +63,40 @@ RSpec.describe "user requests a password change", type: :system, js: true do
   end
   context "from a password reset email" do
     context "and the correct reset_password_token is present" do
-      it "alerts the user that the reqest was successful" do
-        user = create_user(email: "user@example.com", password: "password")
-        request_password_reset_instructions(email: user.email)
-        sleep 1
-        reset_password_param  = ActionMailer::Base
-                                  .deliveries.last.body.raw_source
-                                  .scan(/reset_password_token=..................../)
-                                  .first
-        visit "#{edit_user_password_path}?#{reset_password_param}"
-        fill_in "user_password", with: "newpassword"
-        fill_in "user_password_confirmation", with: "newpassword"
-        click_button "Change Password"
-        expect(page).to have_content("Your password has been changed successfully.")
+      context "and the password is long enough" do
+        context "and the password_confirmation matches" do
+          it "alerts the user that the reqest was successful" do
+            user = create_user(email: "user@example.com", password: "password")
+            request_password_reset_instructions(email: user.email)
+            request_password_change_from_email(
+              password:               "newpassword",
+              password_confirmation:  "newpassword"
+            )
+            expect(page).to have_content("Your password has been changed successfully.")
+          end
+        end
+        context "but the password_confirmation does not match" do
+          it "shows the user an error" do
+            user = create_user(email: "user@example.com", password: "password")
+            request_password_reset_instructions(email: user.email)
+            request_password_change_from_email(
+              password:               "newpassword",
+              password_confirmation:  "doesntmatch"
+            )
+            expect(page).to have_content("doesn't match password")
+          end
+        end
+      end
+      context "but the password is too short" do
+        it "shows the user an error" do
+          user = create_user(email: "user@example.com", password: "password")
+          request_password_reset_instructions(email: user.email)
+          request_password_change_from_email(
+            password:               "short",
+            password_confirmation:  "short"
+          )
+          expect(page).to have_content("minimum is 6 characters")
+        end
       end
     end
     context "but an invalid reset_password_token is present" do
