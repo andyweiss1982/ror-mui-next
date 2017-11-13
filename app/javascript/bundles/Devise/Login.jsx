@@ -68,7 +68,11 @@ class Login extends React.Component {
                   error={this.state.alert ? true : false}
                 >
                   <InputLabel htmlFor="user[email]">Email</InputLabel>
-                  <Input name="user[email]" onChange={this.handleChange}/>
+                  <Input
+                    id="user_email"
+                    name="user[email]"
+                    onChange={this.handleChange}
+                  />
                   <FormHelperText>{this.state.alert}</FormHelperText>
                 </FormControl>
               </div>
@@ -78,7 +82,12 @@ class Login extends React.Component {
                   className={classes.formControl}
                   error={this.state.alert ? true : false}
                 >
-                  <PasswordField name="user[password]" placeholder="Password" onChange={this.handleChange}/>
+                  <PasswordField
+                    id="user_password"
+                    name="user[password]"
+                    placeholder="Password"
+                    onChange={this.handleChange}
+                  />
                 </FormControl>
               </div>
               <FormControlLabel

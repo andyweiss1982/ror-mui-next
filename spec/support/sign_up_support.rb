@@ -1,4 +1,4 @@
-def signup_as(email:, password:, password_confirmation:)
+def sign_up_as(email:, password:, password_confirmation:)
   visit root_path
   click_button "Sign Up"
   fill_in "user_email", with: email

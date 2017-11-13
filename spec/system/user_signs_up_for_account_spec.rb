@@ -5,7 +5,7 @@ RSpec.describe "user signs up for account", type: :system, js: true do
     context "and the password confirmation matches the password" do
       context "and the password is long enough" do
         it "redirects the user to his dashboard" do
-          signup_as(
+          sign_up_as(
             email:                  "user@example.com",
             password:               "password",
             password_confirmation:  "password"
@@ -15,7 +15,7 @@ RSpec.describe "user signs up for account", type: :system, js: true do
       end
       context "but the password is too short" do
         it "shows the user an error" do
-          signup_as(
+          sign_up_as(
             email:                  "user@example.com",
             password:               "short",
             password_confirmation:  "short"
@@ -26,7 +26,7 @@ RSpec.describe "user signs up for account", type: :system, js: true do
     end
     context "but the password confirmation does not match the password" do
       it "shows the user an error" do
-        signup_as(
+        sign_up_as(
           email:                  "user@example.com",
           password:               "password",
           password_confirmation:  "doesntmatch"
@@ -37,7 +37,7 @@ RSpec.describe "user signs up for account", type: :system, js: true do
   end
   context "but leaves the email field blank" do
     it "shows the user an error" do
-      signup_as(
+      sign_up_as(
         email:                  "",
         password:               "password",
         password_confirmation:  "password"
@@ -47,7 +47,7 @@ RSpec.describe "user signs up for account", type: :system, js: true do
   end
   context "but enters an invalid email" do
     it "shows the user an error" do
-      signup_as(
+      sign_up_as(
         email:                  "invalidemail",
         password:               "password",
         password_confirmation:  "password"
