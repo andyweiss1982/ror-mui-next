@@ -1,6 +1,6 @@
-<% flash[:email]                  = resource.errors[:email] %>
-<% flash[:password]               = resource.errors[:password] %>
-<% flash[:password_confirmation]  = resource.errors[:password_confirmation] %>
-<% flash[:current_password]       = resource.errors[:current_password] %>
+<% flash[:email]                  = resource.errors[:email]&.join(', ')&.downcase %>
+<% flash[:password]               = resource.errors[:password]&.join(', ')&.downcase %>
+<% flash[:password_confirmation]  = resource.errors[:password_confirmation]&.join(', ')&.downcase %>
+<% flash[:current_password]       = resource.errors[:current_password]&.join(', ')&.downcase %>
 Turbolinks.clearCache()
 Turbolinks.visit("<%= response.location %>", { "action": "replace" })

@@ -49,7 +49,7 @@ class Signup extends React.Component {
     let nextAlert = self.state.alert;
     if(event.target.id === "user_password"){
       if(event.target.value.length < self.props.minimum_password_length){
-        nextAlert.password = `too short (minimum ${self.props.minimum_password_length} characters)`;
+        nextAlert.password = `too short (minimum is ${self.props.minimum_password_length} characters)`;
       }else{
         nextAlert.password = undefined;
       }
@@ -87,7 +87,11 @@ class Signup extends React.Component {
                   error={this.state.alert.email ? true : false}
                 >
                   <InputLabel htmlFor="user[email]">Email</InputLabel>
-                  <Input name="user[email]" onChange={this.handleChange}/>
+                  <Input
+                    name="user[email]"
+                    onChange={this.handleChange}
+                    id="user_email"
+                  />
                   <FormHelperText>{this.state.alert.email ? this.state.alert.email : undefined}</FormHelperText>
                 </FormControl>
               </div>

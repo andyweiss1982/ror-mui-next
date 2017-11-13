@@ -3,9 +3,9 @@
     props:  {
               minimum_password_length:  @minimum_password_length,
               alert: {
-                email:                  flash[:email]&.join(', '),
-                password:               flash[:password]&.join(', '),
-                password_confirmation:  flash[:password_confirmation]&.join(', '),
+                email:                  flash[:email],
+                password:               flash[:password],
+                password_confirmation:  flash[:password_confirmation]
               }
             }
 ) %>
