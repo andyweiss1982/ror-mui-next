@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "user deletes account", type: :system, js: true do
-
   it "notifies the user the account was deleted" do
     user = create_user(email: "user@example.com", password: "password")
     sign_in(user)
