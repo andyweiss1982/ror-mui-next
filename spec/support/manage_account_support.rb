@@ -1,7 +1,3 @@
-def create_user(email:, password:)
-  User.create!(email: email, password: password)
-end
-
 def update_email(email:, current_password:)
   visit edit_user_registration_path
   fill_in "user_email", with: email
