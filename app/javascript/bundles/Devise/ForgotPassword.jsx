@@ -66,7 +66,11 @@ class ForgotPassword extends React.Component {
                   error={this.state.alert ? true : false}
                 >
                   <InputLabel htmlFor="user[email]">Email</InputLabel>
-                  <Input name="user[email]" onChange={this.handleChange}/>
+                  <Input
+                    id="user_email"
+                    name="user[email]"
+                    onChange={this.handleChange}
+                  />
                   <FormHelperText>{this.state.alert}</FormHelperText>
                 </FormControl>
               </div>
