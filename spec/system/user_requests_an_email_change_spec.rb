@@ -7,27 +7,28 @@ RSpec.describe "user requests an email change", type: :system, js: true do
   end
   context "and enters his current password" do
     it "alerts the users that the change was successful" do
-      visit edit_user_registration_path
-      fill_in "user_email", with: "user2@example.com"
-      fill_in "user_current_password", with: "password"
-      click_button "Update account"
+      update_email(
+        email: "user2@example.com",
+        current_password: "password"
+      )
       expect(page).to have_content("Your account has been updated successfully.")
     end
   end
   context "and enters an incorrect password" do
     it "shows the user an error" do
-      visit edit_user_registration_path
-      fill_in "user_email", with: "user2@example.com"
-      fill_in "user_current_password", with: "wrongpassword"
-      click_button "Update account"
+      update_email(
+        email: "user2@example.com",
+        current_password: "wrongpassword"
+      )
       expect(page).to have_content("is invalid")
     end
   end
   context "and does not enter his password" do
     it "prevents the user from submitting the form" do
-      visit edit_user_registration_path
-      fill_in "user_email", with: "user2@example.com"
-      click_button "Update account"
+      update_email(
+        email: "user2@example.com",
+        current_password: ""
+      )
       expect(page).to_not have_content("Your account has been updated successfully.")
     end
   end
