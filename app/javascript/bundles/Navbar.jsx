@@ -184,6 +184,7 @@ class Navbar extends React.Component {
                     <Manager>
                       <Target>
                         <Button
+                          id="user_menu"
                           className={classes.button}
                           color="contrast"
                           aria-owns={this.state.menu.open ? 'user-list' : null}
