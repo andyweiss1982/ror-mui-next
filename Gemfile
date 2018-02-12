@@ -20,7 +20,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
 # front end
-gem 'react_on_rails', '~> 9.0'
+gem 'react_on_rails', '~> 10.1'
 
 # authentication
 gem 'devise'
