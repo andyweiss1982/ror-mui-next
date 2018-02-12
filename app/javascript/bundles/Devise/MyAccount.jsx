@@ -107,7 +107,7 @@ class MyAccount extends React.Component {
       <Navbar current_user={this.props.current_user}>
         <div className={classes.aligner} >
           <Card className={classes.card}>
-            <CardHeader title={"Update Account"}/>
+            <CardHeader title="Update Account"/>
             <form
               className="new_user"
               id="new_user"
@@ -122,9 +122,8 @@ class MyAccount extends React.Component {
                 <div className="field">
                   <FormControl
                     fullWidth
-                    className={classes.formControl}
-                    error={this.state.alert.email ? true : false}
                     required
+                    error={this.state.alert.email ? true : false}
                   >
                     <InputLabel htmlFor="user[email]">Email</InputLabel>
                     <Input
@@ -139,7 +138,6 @@ class MyAccount extends React.Component {
                 <div className="field">
                   <FormControl
                     fullWidth
-                    className={classes.formControl}
                     error={this.state.alert.password ? true : false}
                   >
                     <PasswordField
@@ -154,7 +152,6 @@ class MyAccount extends React.Component {
                 <div className="field">
                   <FormControl
                     fullWidth
-                    className={classes.formControl}
                     error={this.state.alert.password_confirmation ? true : false}
                   >
                     <PasswordField
@@ -169,9 +166,8 @@ class MyAccount extends React.Component {
                 <div className="field">
                   <FormControl
                     fullWidth
-                    className={classes.formControl}
-                    error={this.state.alert.current_password ? true : false}
                     required
+                    error={this.state.alert.current_password ? true : false}
                   >
                     <PasswordField
                       id="user_current_password"
