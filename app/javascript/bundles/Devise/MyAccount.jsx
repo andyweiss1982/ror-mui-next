@@ -86,7 +86,7 @@ class MyAccount extends React.Component {
     let nextAlert = self.state.alert;
     if(event.target.id === "user_password"){
       if(event.target.value.length < self.props.minimum_password_length){
-        nextAlert.password = `too short (minimum ${self.props.minimum_password_length} characters)`;
+        nextAlert.password = `too short (minimum is ${self.props.minimum_password_length} characters)`;
       }else{
         nextAlert.password = undefined;
       }
@@ -148,7 +148,7 @@ class MyAccount extends React.Component {
                       placeholder="Password"
                       onChange={this.handleChange}
                     />
-                    <FormHelperText>{this.state.alert.password ? this.state.alert.password : `too short (minimum is ${this.props.minimum_password_length} characters)`}</FormHelperText>
+                    <FormHelperText>{this.state.alert.password}</FormHelperText>
                   </FormControl>
                 </div>
                 <div className="field">
