@@ -30,10 +30,10 @@ const styles = theme => ({
     height: theme.spacing.unit * 4,
   },
   alert: {
-    background: theme.palette.error[500]
+    backgroundColor: theme.palette.error.main
   },
   notice: {
-    background: theme.palette.primary[500]
+    backgroundColor: theme.palette.primary.main
   },
   aligner: {
     display: 'flex',
@@ -86,7 +86,7 @@ class MyAccount extends React.Component {
     let nextAlert = self.state.alert;
     if(event.target.id === "user_password"){
       if(event.target.value.length < self.props.minimum_password_length){
-        nextAlert.password = `too short (minimum ${self.props.minimum_password_length} characters)`;
+        nextAlert.password = `too short (minimum is ${self.props.minimum_password_length} characters)`;
       }else{
         nextAlert.password = undefined;
       }
@@ -107,7 +107,7 @@ class MyAccount extends React.Component {
       <Navbar current_user={this.props.current_user}>
         <div className={classes.aligner} >
           <Card className={classes.card}>
-            <CardHeader title={"Update Account"}/>
+            <CardHeader title="Update Account"/>
             <form
               className="new_user"
               id="new_user"
@@ -122,9 +122,8 @@ class MyAccount extends React.Component {
                 <div className="field">
                   <FormControl
                     fullWidth
-                    className={classes.formControl}
-                    error={this.state.alert.email ? true : false}
                     required
+                    error={this.state.alert.email ? true : false}
                   >
                     <InputLabel htmlFor="user[email]">Email</InputLabel>
                     <Input
@@ -139,7 +138,6 @@ class MyAccount extends React.Component {
                 <div className="field">
                   <FormControl
                     fullWidth
-                    className={classes.formControl}
                     error={this.state.alert.password ? true : false}
                   >
                     <PasswordField
@@ -148,13 +146,12 @@ class MyAccount extends React.Component {
                       placeholder="Password"
                       onChange={this.handleChange}
                     />
-                    <FormHelperText>{this.state.alert.password ? this.state.alert.password : `too short (minimum is ${this.props.minimum_password_length} characters)`}</FormHelperText>
+                    <FormHelperText>{this.state.alert.password}</FormHelperText>
                   </FormControl>
                 </div>
                 <div className="field">
                   <FormControl
                     fullWidth
-                    className={classes.formControl}
                     error={this.state.alert.password_confirmation ? true : false}
                   >
                     <PasswordField
@@ -169,9 +166,8 @@ class MyAccount extends React.Component {
                 <div className="field">
                   <FormControl
                     fullWidth
-                    className={classes.formControl}
-                    error={this.state.alert.current_password ? true : false}
                     required
+                    error={this.state.alert.current_password ? true : false}
                   >
                     <PasswordField
                       id="user_current_password"
@@ -185,8 +181,8 @@ class MyAccount extends React.Component {
               </CardContent>
               <CardActions>
                 <Button
-                  raised
-                  color="accent"
+                  variant="raised"
+                  color="secondary"
                   onClick={this.handleDialogOpen}
                 >
                   Cancel account
@@ -209,20 +205,20 @@ class MyAccount extends React.Component {
         </div>
         <Dialog
           open={this.state.dialog.open}
-          onRequestClose={this.handleDialogClose}
+          onClose={this.handleDialogClose}
           className={classes.dialog}
         >
-          <DialogTitle>{"Delete Account?"}</DialogTitle>
+          <DialogTitle>Delete Account?</DialogTitle>
           <form class="button_to" method="post" action="/users" data-remote="true">
             <input type="hidden" name="_method" value="delete"></input>
             <DialogActions>
-              <Button onClick={this.handleDialogClose} color="default">
+              <Button onClick={this.handleDialogClose} color="primary">
                 Never Mind
               </Button>
               <Button
                 raised
                 autofocus
-                color="accent"
+                color="secondary"
                 type="submit"
                 name="commit"
                 value="Confirm"
@@ -240,12 +236,11 @@ class MyAccount extends React.Component {
           }}
           open={this.state.alert.open}
           autoHideDuration={4000}
-          onRequestClose={this.handleAlertRequestClose}
+          onClose={this.handleAlertRequestClose}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',
             className: classes.alert
           }}
-
           message={<span id="message-id">{this.props.alert}</span>}
           action={[
             <IconButton
@@ -266,7 +261,7 @@ class MyAccount extends React.Component {
           }}
           open={this.state.notice.open}
           autoHideDuration={4000}
-          onRequestClose={this.handleNoticeRequestClose}
+          onClose={this.handleNoticeRequestClose}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',
             className: classes.notice

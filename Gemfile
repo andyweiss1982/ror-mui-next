@@ -20,7 +20,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
 # front end
-gem 'react_on_rails', '~> 9.0'
+gem 'react_on_rails', '~> 10.1'
 
 # authentication
 gem 'devise'
@@ -35,6 +35,7 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
   gem 'pry-rails'
   gem 'chromedriver-helper'
 end

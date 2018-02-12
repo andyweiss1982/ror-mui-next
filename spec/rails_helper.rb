@@ -28,7 +28,8 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   config.before(:each, type: :system, js: true) do
-    driven_by :selenium_chrome_headless
+    driven_by :selenium_chrome
+    # driven_by :selenium_chrome_headless
   end
   config.include Devise::Test::IntegrationHelpers, type: :system
   # If you're not using ActiveRecord, or you'd prefer not to run each of your

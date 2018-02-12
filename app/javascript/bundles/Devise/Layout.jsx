@@ -27,7 +27,7 @@ const styles = theme => ({
     height: theme.spacing.unit * 4,
   },
   notice: {
-    background: theme.palette.primary[500]
+    backgroundColor: theme.palette.primary.main
   }
 });
 
@@ -55,10 +55,8 @@ class Layout extends React.Component {
         <div className={classes.root}>
           <AppBar position="static">
             <Toolbar>
-              <Button color="contrast" onClick={this.handleTitleClick}>
-                <Typography type="title" color="inherit">
-                  Demo Application
-                </Typography>
+              <Button color="inherit" onClick={this.handleTitleClick}>
+                Demo Application
               </Button>
             </Toolbar>
           </AppBar>
@@ -73,7 +71,7 @@ class Layout extends React.Component {
           }}
           open={this.state.notice.open}
           autoHideDuration={4000}
-          onRequestClose={this.handleNoticeRequestClose}
+          onClose={this.handleNoticeRequestClose}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',
             className: classes.notice
