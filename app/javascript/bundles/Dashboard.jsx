@@ -24,10 +24,10 @@ const styles = theme => ({
     height: theme.spacing.unit * 4,
   },
   alert: {
-    background: theme.palette.error[500]
+    backgroundColor: theme.palette.error.main
   },
   notice: {
-    background: theme.palette.primary[500]
+    backgroundColor: theme.palette.primary.main
   }
 });
 
@@ -96,7 +96,6 @@ class Dashboard extends React.Component {
             'aria-describedby': 'message-id',
             className: classes.alert
           }}
-
           message={<span id="message-id">{this.props.alert}</span>}
           action={[
             <IconButton

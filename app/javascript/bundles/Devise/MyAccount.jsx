@@ -30,10 +30,10 @@ const styles = theme => ({
     height: theme.spacing.unit * 4,
   },
   alert: {
-    background: theme.palette.error[500]
+    backgroundColor: theme.palette.error.main
   },
   notice: {
-    background: theme.palette.primary[500]
+    backgroundColor: theme.palette.primary.main
   },
   aligner: {
     display: 'flex',
