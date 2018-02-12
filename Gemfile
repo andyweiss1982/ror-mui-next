@@ -37,6 +37,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
   gem 'pry-rails'
+  gem 'chromedriver-helper'
 end
 
 group :development do
