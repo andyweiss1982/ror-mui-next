@@ -181,8 +181,8 @@ class MyAccount extends React.Component {
               </CardContent>
               <CardActions>
                 <Button
-                  raised
-                  color="accent"
+                  variant="raised"
+                  color="secondary"
                   onClick={this.handleDialogOpen}
                 >
                   Cancel account
@@ -205,20 +205,20 @@ class MyAccount extends React.Component {
         </div>
         <Dialog
           open={this.state.dialog.open}
-          onRequestClose={this.handleDialogClose}
+          onClose={this.handleDialogClose}
           className={classes.dialog}
         >
-          <DialogTitle>{"Delete Account?"}</DialogTitle>
+          <DialogTitle>Delete Account?</DialogTitle>
           <form class="button_to" method="post" action="/users" data-remote="true">
             <input type="hidden" name="_method" value="delete"></input>
             <DialogActions>
-              <Button onClick={this.handleDialogClose} color="default">
+              <Button onClick={this.handleDialogClose} color="primary">
                 Never Mind
               </Button>
               <Button
                 raised
                 autofocus
-                color="accent"
+                color="secondary"
                 type="submit"
                 name="commit"
                 value="Confirm"
@@ -236,12 +236,11 @@ class MyAccount extends React.Component {
           }}
           open={this.state.alert.open}
           autoHideDuration={4000}
-          onRequestClose={this.handleAlertRequestClose}
+          onClose={this.handleAlertRequestClose}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',
             className: classes.alert
           }}
-
           message={<span id="message-id">{this.props.alert}</span>}
           action={[
             <IconButton
@@ -262,7 +261,7 @@ class MyAccount extends React.Component {
           }}
           open={this.state.notice.open}
           autoHideDuration={4000}
-          onRequestClose={this.handleNoticeRequestClose}
+          onClose={this.handleNoticeRequestClose}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',
             className: classes.notice

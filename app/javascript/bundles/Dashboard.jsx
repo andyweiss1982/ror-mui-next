@@ -91,7 +91,7 @@ class Dashboard extends React.Component {
           }}
           open={this.state.alert.open}
           autoHideDuration={4000}
-          onRequestClose={this.handleAlertRequestClose}
+          onClose={this.handleAlertRequestClose}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',
             className: classes.alert
@@ -117,7 +117,7 @@ class Dashboard extends React.Component {
           }}
           open={this.state.notice.open}
           autoHideDuration={4000}
-          onRequestClose={this.handleNoticeRequestClose}
+          onClose={this.handleNoticeRequestClose}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',
             className: classes.notice
