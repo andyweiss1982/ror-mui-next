@@ -41,7 +41,7 @@ const styles = theme => ({
   },
   appBar: {
     position: 'absolute',
-    zIndex: theme.zIndex.navDrawer + 1,
+    zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -167,17 +167,15 @@ class Navbar extends React.Component {
             <AppBar className={classNames(classes.appBar, this.state.drawer.open && classes.appBarShift)}>
               <Toolbar disableGutters={!this.state.drawer.open}>
                 <IconButton
-                  color="contrast"
+                  color="inherit"
                   aria-label="open drawer"
                   onClick={this.handleDrawerOpen}
                   className={classNames(classes.menuButton, this.state.drawer.open && classes.hide)}
                 >
                   <MenuIcon />
                 </IconButton>
-                <Button color="contrast" onClick={this.handleTitleClick}>
-                  <Typography type="title" color="inherit" noWrap>
-                    Demo Application
-                  </Typography>
+                <Button color="inherit" onClick={this.handleTitleClick}>
+                  Demo Application
                 </Button>
                 <div className={classes.toolBarRight}>
                   <ClickAwayListener onClickAway={this.handleMenuRequestClose}>
@@ -186,7 +184,7 @@ class Navbar extends React.Component {
                         <Button
                           id="user_menu"
                           className={classes.button}
-                          color="contrast"
+                          color="inherit"
                           aria-owns={this.state.menu.open ? 'user-list' : null}
                           aria-haspopup="true"
                           onClick={this.handleMenuClick}
@@ -221,7 +219,7 @@ class Navbar extends React.Component {
               </Toolbar>
             </AppBar>
             <Drawer
-              type="permanent"
+              variant="permanent"
               classes={{
                 paper: classNames(classes.drawerPaper, !this.state.drawer.open && classes.drawerPaperClose),
               }}

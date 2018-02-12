@@ -135,7 +135,7 @@ class Signup extends React.Component {
               </Button>
               <div style={{marginLeft: 'auto'}}>
                 <Button
-                  raised
+                  variant="raised"
                   color="primary"
                   type="submit"
                   name="commit"

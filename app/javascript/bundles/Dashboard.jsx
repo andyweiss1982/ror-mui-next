@@ -24,10 +24,10 @@ const styles = theme => ({
     height: theme.spacing.unit * 4,
   },
   alert: {
-    background: theme.palette.error[500]
+    backgroundColor: theme.palette.error.main
   },
   notice: {
-    background: theme.palette.primary[500]
+    backgroundColor: theme.palette.primary.main
   }
 });
 
@@ -91,12 +91,11 @@ class Dashboard extends React.Component {
           }}
           open={this.state.alert.open}
           autoHideDuration={4000}
-          onRequestClose={this.handleAlertRequestClose}
+          onClose={this.handleAlertRequestClose}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',
             className: classes.alert
           }}
-
           message={<span id="message-id">{this.props.alert}</span>}
           action={[
             <IconButton
@@ -117,7 +116,7 @@ class Dashboard extends React.Component {
           }}
           open={this.state.notice.open}
           autoHideDuration={4000}
-          onRequestClose={this.handleNoticeRequestClose}
+          onClose={this.handleNoticeRequestClose}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',
             className: classes.notice
